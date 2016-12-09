@@ -1,6 +1,5 @@
 import * as Utils from "../Utils";
-import * as Compare from "./interfaces/Comparable"
-
+import * as Compare from "./interfaces/Comparable";
 export default class LinkedList<T>{
 
     /**@private */
@@ -88,7 +87,7 @@ export default class LinkedList<T>{
      * @param {Function} comparer.
      * @return {boolean} returns true if succesfull otherwise false;
      */
-    public remove(item: T, comparer?: Compare.IEquals<T>): boolean{
+    public remove(item: T, comparer?: Function): boolean{
         var equalityCheck = this.defaultOrCustomEqualityCheck(comparer);
         if(!this.isValidIndex){return false;}
 
@@ -96,7 +95,7 @@ export default class LinkedList<T>{
         var currentNode = this._firstNode;
 
         while(!Utils.isNull(currentNode)){
-            if(!equalityCheck(currentNode.element, item)){
+            if(equalityCheck(currentNode.element, item)){
                 this.removeNode(currentNode, previousNode);
                 this._count--;
                 return true;
@@ -104,7 +103,6 @@ export default class LinkedList<T>{
             previousNode = currentNode;
             currentNode = currentNode.next;
         }
-        this._count--;
         return false;       
     }
 
@@ -160,7 +158,7 @@ export default class LinkedList<T>{
      * that can compare the elements in the list if a standard equality check is inadequate.
      * @return {Number} the index of the item in the list, or -1 if it does not exist.
      */
-    public indexOf(item: T, comparer?: Compare.IEquals<T>){
+    public indexOf(item: T, comparer?: Function){
         if(Utils.isUndefined(item)) {return -1;}
         var equalityCheck = this.defaultOrCustomEqualityCheck(comparer);
 
@@ -183,7 +181,7 @@ export default class LinkedList<T>{
      * that can compare the elements in the list if a standard equality check is inadequate.
      * @return {boolean}
      */
-    public contains(item: T, comparer?: Compare.IEquals<T>): boolean{
+    public contains(item: T, comparer?: Function): boolean{
         var equalityCheck = this.defaultOrCustomEqualityCheck(comparer);
         return !Utils.areEqual(this.indexOf(item, comparer), -1);
     }
@@ -194,6 +192,14 @@ export default class LinkedList<T>{
             callBack(currentNode.element);
             currentNode = currentNode.next;
         }
+    }
+    
+    /**
+     * Checks if the Linked List contains any elements or not.
+     * @return {boolean} - true if list is empty, otherwise false.
+     */
+    public isEmpty(): boolean{
+        return this._count === 0;
     }
 
     public toArray(): T[]{
@@ -227,14 +233,9 @@ export default class LinkedList<T>{
         }
     }
     /**@private */
-    private defaultOrCustomEqualityCheck(comparer?: Compare.IEquals<T>): Function{
+    private defaultOrCustomEqualityCheck(comparer?: Function): Function{
         return !Utils.isUndefined(comparer) ? 
                comparer :(a:T, b:T):boolean => {return a === b;}
-    }
-
-    /**@private */
-    private isEmpty(): boolean{
-        return this._count === 0;
     }
 
     /**@private */
@@ -266,7 +267,7 @@ export default class LinkedList<T>{
 
     /**@private */
     private isValidIndex(index: number): boolean{
-        return index > 0 && index < this._count;
+        return index >= 0 && index < this._count;
     }
 
 

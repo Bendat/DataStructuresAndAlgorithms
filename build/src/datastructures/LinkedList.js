@@ -67,7 +67,7 @@ var LinkedList = (function () {
         var previousNode = null;
         var currentNode = this._firstNode;
         while (!Utils.isNull(currentNode)) {
-            if (!equalityCheck(currentNode.element, item)) {
+            if (equalityCheck(currentNode.element, item)) {
                 this.removeNode(currentNode, previousNode);
                 this._count--;
                 return true;
@@ -75,7 +75,6 @@ var LinkedList = (function () {
             previousNode = currentNode;
             currentNode = currentNode.next;
         }
-        this._count--;
         return false;
     };
     LinkedList.prototype.removeAt = function (index) {
@@ -142,6 +141,9 @@ var LinkedList = (function () {
             currentNode = currentNode.next;
         }
     };
+    LinkedList.prototype.isEmpty = function () {
+        return this._count === 0;
+    };
     LinkedList.prototype.toArray = function () {
         var array = [];
         var currentNode = this._firstNode;
@@ -175,9 +177,6 @@ var LinkedList = (function () {
         return !Utils.isUndefined(comparer) ?
             comparer : function (a, b) { return a === b; };
     };
-    LinkedList.prototype.isEmpty = function () {
-        return this._count === 0;
-    };
     LinkedList.prototype.createNode = function (item) {
         return {
             element: item,
@@ -200,7 +199,7 @@ var LinkedList = (function () {
         return node;
     };
     LinkedList.prototype.isValidIndex = function (index) {
-        return index > 0 && index < this._count;
+        return index >= 0 && index < this._count;
     };
     return LinkedList;
 }());
