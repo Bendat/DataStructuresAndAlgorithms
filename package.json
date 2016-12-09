@@ -1,0 +1,23 @@
+{
+  "name": "datastructures_algorithms",
+  "version": "0.0.1",
+  "description": "Learning project for common algorithms and datastructures",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf build/",
+    "build": "grunt ts",
+    "test": "mocha build/ --recursive",
+    "cleanTest": "npm run clean && npm run build && npm test",
+    "buildTest": "npm run build && npm test"
+  },
+  "author": "Ben Aherne",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "grunt": "^1.0.1",
+    "grunt-typescript": "^0.8.0",
+    "mocha": "^3.2.0",
+    "mocha-typescript": "^1.0.14",
+    "typescript": "^2.1.4"
+  }
+}
