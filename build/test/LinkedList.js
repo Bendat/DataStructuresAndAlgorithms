@@ -21,12 +21,12 @@ describe('LinkedList', function () {
         });
         it('should return true if the list contains a given element', function (done) {
             utils.addRange(subject, 0, 4);
-            chai_1.expect(subject.contains(1)).to.equal(true);
+            chai_1.expect(subject.contains(1)).to.be.true;
             done();
         });
         it('should return false if the list does not contain a given element', function (done) {
             utils.addRange(subject, 0, 4);
-            chai_1.expect(subject.contains(15)).to.equal(false);
+            chai_1.expect(subject.contains(15)).to.be.false;
             done();
         });
     });
@@ -49,17 +49,16 @@ describe('LinkedList', function () {
         it('should remove an item from the list.', function (done) {
             subject.add(1);
             chai_1.expect(subject.count).to.equal(1);
-            chai_1.expect(subject.remove(1)).to.equal(true);
+            chai_1.expect(subject.remove(1)).to.be.true;
             chai_1.expect(subject.count).to.equal(0);
             done();
         });
         it("should return false when removing a non-existing item", function (done) {
-            chai_1.expect(subject.remove(1)).to.equal(false);
+            chai_1.expect(subject.remove(1)).to.be.false;
             done();
         });
         it('should remove an item at a specified index.', function (done) {
             utils.addRange(subject, 0, 4);
-            console.log(subject.toString());
             chai_1.expect(subject.elementAt(1)).to.equal(1);
             chai_1.expect(subject.removeAt(1)).to.equal(1);
             chai_1.expect(subject.count).to.equal(4);

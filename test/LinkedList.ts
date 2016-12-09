@@ -27,13 +27,13 @@ describe('LinkedList', () => {
 
         it('should return true if the list contains a given element',(done)=>{
             utils.addRange(subject, 0, 4);
-            expect(subject.contains(1)).to.equal(true);
+            expect(subject.contains(1)).to.be.true;
             done();
         });
 
         it('should return false if the list does not contain a given element',(done)=>{
             utils.addRange(subject, 0, 4);
-            expect(subject.contains(15)).to.equal(false);
+            expect(subject.contains(15)).to.be.false;
             done();
         });
 
@@ -60,13 +60,13 @@ describe('LinkedList', () => {
         it('should remove an item from the list.', (done)=>{
             subject.add(1);
             expect(subject.count).to.equal(1);
-            expect(subject.remove(1)).to.equal(true);
+            expect(subject.remove(1)).to.be.true;
             expect(subject.count).to.equal(0);
             done();
         });
 
         it("should return false when removing a non-existing item", (done)=>{
-            expect(subject.remove(1)).to.equal(false);
+            expect(subject.remove(1)).to.be.false;
             done();
         });
 

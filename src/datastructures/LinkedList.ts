@@ -84,7 +84,7 @@ export default class LinkedList<T>{
     /**
      * Removes the item provided from the Linked List if it exists.
      * @param {T} item - the item to be removed;
-     * @param {Function} comparer.
+     * @param {Function} comparer. Custom function for equality checks where === is insufficient.
      * @return {boolean} returns true if succesfull otherwise false;
      */
     public remove(item: T, comparer?: Function): boolean{
@@ -193,7 +193,7 @@ export default class LinkedList<T>{
             currentNode = currentNode.next;
         }
     }
-    
+
     /**
      * Checks if the Linked List contains any elements or not.
      * @return {boolean} - true if list is empty, otherwise false.
