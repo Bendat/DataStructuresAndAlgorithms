@@ -142,7 +142,7 @@ var LinkedList = (function () {
         }
     };
     LinkedList.prototype.isEmpty = function () {
-        return this._count === 0;
+        return Utils.areEqual(this._count, 0);
     };
     LinkedList.prototype.toArray = function () {
         var array = [];

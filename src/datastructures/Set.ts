@@ -73,9 +73,9 @@ export default class Set<T>{
      */
     public union(other: Set<T>, inline = false): Set<T>{
         var newSet: Set<T> = inline? this: new Set<T>(this._innerArray.splice(0));
-        for(var element of other){
+        newSet.forEach((element)=>{
             newSet.insert(element);
-        }
+        });
         return newSet;
     }
 
@@ -101,9 +101,9 @@ export default class Set<T>{
      */
     public subtract(other:Set<T>, inline = false):Set<T>{
         var newSet: Set<T> = inline? this: new Set<T>(this._innerArray.splice(0));
-        for(var element of other){
+        newSet.forEach((element)=>{
             newSet.remove(element);
-        }
+        });
         return newSet;
     }
 
@@ -117,20 +117,26 @@ export default class Set<T>{
      */
     public intersection(other:Set<T>, inline = false):Set<T>{
         var newSet: Set<T> = inline ? this: new Set<T>(this._innerArray.splice(0));
-        for(var element of newSet){
+        newSet.forEach((element)=>{
             if(!other.contains(element)){
                 newSet.remove(element);
             }
-        }
+        });
         return newSet;
     }
 
-    /**
-     * Returns an iterator object for use in for...of loops.
-     */
-    public [Symbol.iterator](): IterableIterator<T>{
-        return this._innerArray.values();
+    public forEach(callback: Function):void{
+        this._innerArray.forEach((ele=>{
+            callback(ele);
+        }));
     }
+
+    // /**
+    //  * Returns an iterator object for use in for...of loops.
+    //  */
+    // public [Symbol.iterator](){
+    //     return this._innerArray.values();
+    // }
 
     /**
      * Indicates whether the Set is empty.
