@@ -199,7 +199,7 @@ export default class LinkedList<T>{
      * @return {boolean} - true if list is empty, otherwise false.
      */
     public isEmpty(): boolean{
-        return this._count === 0;
+        return Utils.areEqual(this._count, 0);
     }
 
     public toArray(): T[]{
@@ -232,6 +232,7 @@ export default class LinkedList<T>{
             currentNode.next = null;
         }
     }
+
     /**@private */
     private defaultOrCustomEqualityCheck(comparer?: Function): Function{
         return !Utils.isUndefined(comparer) ? 

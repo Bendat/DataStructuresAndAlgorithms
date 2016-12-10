@@ -2,7 +2,7 @@ import * as Utils from "../Utils";
 import * as Compare from "./interfaces/Comparable";
 import * as bnds from "../Enums/Bounds";
 
-export default class Stack<T>{
+export default class Queue<T>{
     private readonly DEFAULT_SIZE:number = Infinity;
     private _innerArray: T[] = new Array();
     private _maxSize: number;
@@ -10,15 +10,15 @@ export default class Stack<T>{
         return this._maxSize;
     }
     /**
-     * The number of items in the stack.
+     * The number of items in the queue.
      */
     public get count():number{
         return this._innerArray.length;
     }
 
     /**
-     * Creates a new stack object.
-     * @param {number=} maxSize - The maximum number of elements the stack can contain.
+     * Creates a new queue object.
+     * @param {number=} maxSize - The maximum number of elements the queue can contain.
      */
     public constructor(maxSize?:number){
         if(Utils.isUndefined(maxSize)){
@@ -27,47 +27,44 @@ export default class Stack<T>{
             this._maxSize = maxSize;
         }
     }
-        
-    /**
-     * Removes the last element in the stack and returns it.
-     * @return {T} The element removed from the stack.
-     */
-    public pop(): T{
-        if(!Utils.areEqual(this.count, bnds.Bounds.Empty)){
-            return this._innerArray.pop();
-        }
-        return null;
-    }
 
     /**
-     * Adds a new item to the top of the stack. Alias for push().
-     * @return {number} The new size of the stack, or the enum member Bounds.Empty (i.e -1).
+     * Adds a new item to the top of the queue. Alias for enqueue().
+     * @return {number} The new size of the queue, or the enum member Bounds.Empty (i.e -1).
      */
     public add(item: T):number{
-        return this.push(item);
+        return this.enqueue(item);
     }
 
     /**
-     * Adds a new item to the top of the stack.
-     * @return {number} The new size of the stack, or the enum member Bounds.Empty (i.e -1).
+     * Adds a new item to the top of the queue.
+     * @return {number} The new size of the queue, or the enum member Bounds.Empty (i.e -1).
      */
-    public push(item: T):number{
+    public enqueue(item: T): number{
         if(this._innerArray.length < this._maxSize){
             return this._innerArray.push(item);
         }
         return bnds.Bounds.Full;
     }
-
+    
     /**
-     * Returns the last element of the stack without removing it.
-     * @return {T} The last element in the stack.
+     * Removes the first element in the queue and returns it.
+     * @return {T} The element removed from the queue.
      */
-    public peek(): T{
-        return this._innerArray[this._innerArray.length - 1];
+    public dequeue(): T{
+        return this._innerArray.shift();
     }
 
     /**
-     * Returns whether or not the stack has any contents.
+     * Returns the last element of the queue without removing it.
+     * @return {T} The last element in the queue.
+     */
+    public front(){
+        return this._innerArray[0];
+    }
+
+    /**
+     * Returns whether or not the queue has any contents.
      * @return {boolean}
      */
     public isEmpty():boolean{
@@ -75,7 +72,7 @@ export default class Stack<T>{
     }
 
     /**
-     * Returns whether or not the stack can add any more elements.
+     * Returns whether or not the queue can add any more elements.
      * @return {boolean}
      */
     public isFull(): boolean{

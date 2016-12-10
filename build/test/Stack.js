@@ -32,6 +32,11 @@ describe('Stack', function () {
             chai_1.expect(subject.peek()).to.equal(5);
             done();
         });
+        it("should create a string representing the stack", function (done) {
+            utils.addRange(subject, 0, 3);
+            chai_1.expect(subject.toString()).to.equal("[0,1,2,3]");
+            done();
+        });
     });
 });
 //# sourceMappingURL=Stack.js.map

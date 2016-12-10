@@ -1,8 +1,8 @@
 "use strict";
 var Utils = require("../Utils");
 var bnds = require("../Enums/Bounds");
-var Stack = (function () {
-    function Stack(maxSize) {
+var Queue = (function () {
+    function Queue(maxSize) {
         this.DEFAULT_SIZE = Infinity;
         this._innerArray = new Array();
         if (Utils.isUndefined(maxSize)) {
@@ -12,52 +12,49 @@ var Stack = (function () {
             this._maxSize = maxSize;
         }
     }
-    Object.defineProperty(Stack.prototype, "maxSize", {
+    Object.defineProperty(Queue.prototype, "maxSize", {
         get: function () {
             return this._maxSize;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(Stack.prototype, "count", {
+    Object.defineProperty(Queue.prototype, "count", {
         get: function () {
             return this._innerArray.length;
         },
         enumerable: true,
         configurable: true
     });
-    Stack.prototype.pop = function () {
-        if (!Utils.areEqual(this.count, bnds.Bounds.Empty)) {
-            return this._innerArray.pop();
-        }
-        return null;
+    Queue.prototype.add = function (item) {
+        return this.enqueue(item);
     };
-    Stack.prototype.add = function (item) {
-        return this.push(item);
-    };
-    Stack.prototype.push = function (item) {
+    Queue.prototype.enqueue = function (item) {
         if (this._innerArray.length < this._maxSize) {
             return this._innerArray.push(item);
         }
         return bnds.Bounds.Full;
     };
-    Stack.prototype.peek = function () {
-        return this._innerArray[this._innerArray.length - 1];
+    Queue.prototype.dequeue = function () {
+        return this._innerArray.shift();
     };
-    Stack.prototype.isEmpty = function () {
+    Queue.prototype.front = function () {
+        return this._innerArray[0];
+    };
+    Queue.prototype.isEmpty = function () {
         return Utils.areEqual(this.count, bnds.Bounds.Empty);
     };
-    Stack.prototype.isFull = function () {
+    Queue.prototype.isFull = function () {
         return Utils.areEqual(this.count, this._maxSize);
     };
-    Stack.prototype.toArray = function () {
+    Queue.prototype.toArray = function () {
         return this._innerArray.slice(0);
     };
-    Stack.prototype.toString = function () {
+    Queue.prototype.toString = function () {
         return "[" + this.toArray().toString() + "]";
     };
-    return Stack;
+    return Queue;
 }());
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = Stack;
-//# sourceMappingURL=Stack.js.map
+exports.default = Queue;
+//# sourceMappingURL=Queue.js.map
