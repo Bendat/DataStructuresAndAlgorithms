@@ -25,8 +25,6 @@ export default class Stack<T>{
             this._maxSize = maxSize;
         }
     }
-
-
         
     /**
      * Removes the last element in the stack and returns it.
@@ -44,11 +42,9 @@ export default class Stack<T>{
      * @return {number} The new size of the stack, or the enum member Bounds.Empty (i.e -1).
      */
     public add(item: T):number{
-        if(this._innerArray.length < this._maxSize){
-            return this._innerArray.push(item);
-        }
+        return this.push(item);
     }
-    
+
     /**
      * Adds a new item to the top of the stack.
      * @return {number} The new size of the stack, or the enum member Bounds.Empty (i.e -1).
