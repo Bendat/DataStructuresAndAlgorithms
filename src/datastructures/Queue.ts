@@ -1,7 +1,6 @@
 import * as Utils from "../Utils";
 import * as Compare from "./interfaces/Comparable";
 import * as bnds from "../Enums/Bounds";
-
 export default class Queue<T>{
     private readonly DEFAULT_SIZE:number = Infinity;
     private _innerArray: T[] = new Array();
@@ -59,7 +58,7 @@ export default class Queue<T>{
      * Returns the last element of the queue without removing it.
      * @return {T} The last element in the queue.
      */
-    public front(){
+    public front():T{
         return this._innerArray[0];
     }
 

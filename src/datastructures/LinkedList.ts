@@ -1,5 +1,6 @@
 import * as Utils from "../Utils";
 import * as Compare from "./interfaces/Comparable";
+import {INode} from "./interfaces/Node";
 export default class LinkedList<T>{
 
     /**@private */
@@ -274,7 +275,4 @@ export default class LinkedList<T>{
 
 }
 
-export interface INode<T> {
-    element: T;
-    next: INode<T>;
-}
+

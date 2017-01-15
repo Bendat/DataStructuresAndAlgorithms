@@ -16,32 +16,29 @@ var Set = (function () {
     });
     Set.prototype.contains = function (item, comparer) {
         var cmp = this.defaultOrCustomEqualityCheck(comparer);
-        for (var _i = 0, _a = this._innerArray; _i < _a.length; _i++) {
-            var element = _a[_i];
-            if (cmp(item, element)) {
-                return true;
-            }
-        }
-        return false;
+        return this._innerArray.indexOf(item) >= 0;
     };
-    Set.prototype.add = function (item) {
-        this.insert(item);
+    Set.prototype.add = function (item, comparer) {
+        this.insert(item, comparer);
     };
-    Set.prototype.insert = function (item) {
-        if (!this.contains(item)) {
+    Set.prototype.insert = function (item, comparer) {
+        if (!this.contains(item, comparer)) {
             this._innerArray.push(item);
         }
     };
-    Set.prototype.remove = function (item) {
-        if (!this.contains(item)) {
-            this._innerArray.splice(this._innerArray.indexOf(item), 1);
+    Set.prototype.remove = function (item, comparer) {
+        var index = this.indexOf(item);
+        if (this.contains(item, comparer) && index >= 0) {
+            this._innerArray.splice(index, 1);
         }
     };
     Set.prototype.union = function (other, inline) {
         if (inline === void 0) { inline = false; }
-        var newSet = inline ? this : new Set(this._innerArray.splice(0));
-        newSet.forEach(function (element) {
-            newSet.insert(element);
+        var newSet = inline ? this : new Set(this._innerArray.slice(0));
+        other.forEach(function (element) {
+            if (!(newSet.indexOf(element) >= 0)) {
+                newSet.insert(element);
+            }
         });
         return newSet;
     };
@@ -51,26 +48,50 @@ var Set = (function () {
     };
     Set.prototype.subtract = function (other, inline) {
         if (inline === void 0) { inline = false; }
-        var newSet = inline ? this : new Set(this._innerArray.splice(0));
-        newSet.forEach(function (element) {
-            newSet.remove(element);
-        });
-        return newSet;
-    };
-    Set.prototype.intersection = function (other, inline) {
-        if (inline === void 0) { inline = false; }
-        var newSet = inline ? this : new Set(this._innerArray.splice(0));
-        newSet.forEach(function (element) {
-            if (!other.contains(element)) {
+        var newSet = inline ? this : new Set(this._innerArray.slice(0));
+        other.forEach(function (element) {
+            if ((newSet.indexOf(element) >= 0)) {
                 newSet.remove(element);
             }
         });
         return newSet;
     };
+    Set.prototype.intersection = function (other, inline) {
+        var _this = this;
+        if (inline === void 0) { inline = false; }
+        var newSet = new Set();
+        other.forEach(function (element) {
+            if (_this.contains(element)) {
+                newSet.add(element);
+            }
+        });
+        if (inline) {
+            this._innerArray = newSet.toArray();
+        }
+        return inline ? this : newSet;
+    };
+    Set.prototype.indexOf = function (item, comparer) {
+        if (Utils.isUndefined(item)) {
+            return -2;
+        }
+        var cmp = this.defaultOrCustomEqualityCheck(comparer);
+        for (var x = 0; x < this._innerArray.length; x++) {
+            if (cmp(this._innerArray[x], item)) {
+                return x;
+            }
+        }
+        return -1;
+    };
     Set.prototype.forEach = function (callback) {
         this._innerArray.forEach((function (ele) {
             callback(ele);
         }));
+    };
+    Set.prototype.toArray = function () {
+        return this._innerArray.slice(0);
+    };
+    Set.prototype.toString = function () {
+        return "[" + this.toArray().toString() + "]";
     };
     Set.prototype.isEmpty = function () {
         return Utils.areEqual(this._innerArray.length, 0);

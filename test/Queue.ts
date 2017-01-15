@@ -27,7 +27,7 @@ describe('Queue', () => {
         });
 
         it("should dequeue the first element from the queue", (done)=>{
-            utils.addRange(subject, 0,7);
+            utils.addRange(subject, 0, 7);
             expect(subject.count).to.equal(8);
             expect(subject.dequeue()).to.equal(0);
             expect(subject.count).to.equal(7);
