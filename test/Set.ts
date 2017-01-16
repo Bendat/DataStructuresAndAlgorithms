@@ -4,7 +4,7 @@ import * as utils from "./TestUtil";
 import Set from "../src/datastructures/Set";
 import { expect } from 'chai';
 
-describe.only('Set', () => {
+describe('Set', () => {
     var subject: Set<number>;
     
     beforeEach(function () {

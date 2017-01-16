@@ -2,7 +2,7 @@
 var utils = require("./TestUtil");
 var Set_1 = require("../src/datastructures/Set");
 var chai_1 = require("chai");
-describe.only('Set', function () {
+describe('Set', function () {
     var subject;
     beforeEach(function () {
         subject = new Set_1.default();

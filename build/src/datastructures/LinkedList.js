@@ -1,5 +1,6 @@
 "use strict";
 var Utils = require("../Utils");
+var QuickSort_1 = require("../algorithms/QuickSort");
 var LinkedList = (function () {
     function LinkedList() {
         var _this = this;
@@ -143,6 +144,17 @@ var LinkedList = (function () {
     };
     LinkedList.prototype.isEmpty = function () {
         return Utils.areEqual(this._count, 0);
+    };
+    LinkedList.prototype.sort = function (comparator, type) {
+        var _this = this;
+        var sort = new QuickSort_1.QuickSort(this.toArray(), comparator).sort();
+        while (this._count > 0) {
+            this.removeAt(this._count - 1);
+        }
+        sort.forEach(function (element) {
+            _this.add(element);
+        });
+        return this;
     };
     LinkedList.prototype.toArray = function () {
         var array = [];

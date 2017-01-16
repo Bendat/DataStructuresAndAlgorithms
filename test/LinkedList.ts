@@ -89,7 +89,16 @@ describe('LinkedList', () => {
         });
     });
 
-    describe("Utility functions, [toString, toArray, forEach]", ()=>{
+    describe("Utility functions, [sort, toString, toArray, forEach]", ()=>{
+        
+        it("should sort the list", (done)=>{
+            subject.add(2);
+            subject.add(5);
+            subject.add(1);
+            subject.add(11);
+            expect(subject.sort().toArray()).to.deep.equal([1,2,5,11]);
+            done();
+        });
         //TODO
     });
 });

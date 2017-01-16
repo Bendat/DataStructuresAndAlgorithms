@@ -1,6 +1,9 @@
 import * as Utils from "../Utils";
 import * as Compare from "./interfaces/Comparable";
 import {INode} from "./interfaces/Node";
+import {SortTypes} from "../Enums/Sorts";
+import {QuickSort} from "../algorithms/QuickSort";
+
 export default class LinkedList<T>{
 
     /**@private */
@@ -203,6 +206,22 @@ export default class LinkedList<T>{
         return Utils.areEqual(this._count, 0);
     }
 
+    /**
+     * Sorts the Linked list.
+     * @param {Function]} comparator - The function to compare elements with.
+     * @param {SortTypes=} type - The Sorting algorithm to use. Unimplemented.
+     */
+    public sort(comparator?: Function, type?: SortTypes){
+        let sort = new QuickSort(this.toArray(), comparator).sort();
+        while(this._count > 0){
+            this.removeAt(this._count - 1);
+        }
+        sort.forEach((element)=>{
+            this.add(element);
+        });
+        return this;
+    }
+
     public toArray(): T[]{
         var array: T[] = [];
         var currentNode = this._firstNode;
@@ -271,8 +290,6 @@ export default class LinkedList<T>{
     private isValidIndex(index: number): boolean{
         return index >= 0 && index < this._count;
     }
-
-
 }
 
 

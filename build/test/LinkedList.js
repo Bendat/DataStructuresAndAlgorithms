@@ -74,7 +74,15 @@ describe('LinkedList', function () {
             done();
         });
     });
-    describe("Utility functions, [toString, toArray, forEach]", function () {
+    describe("Utility functions, [sort, toString, toArray, forEach]", function () {
+        it("should sort the list", function (done) {
+            subject.add(2);
+            subject.add(5);
+            subject.add(1);
+            subject.add(11);
+            chai_1.expect(subject.sort().toArray()).to.deep.equal([1, 2, 5, 11]);
+            done();
+        });
     });
 });
 //# sourceMappingURL=LinkedList.js.map

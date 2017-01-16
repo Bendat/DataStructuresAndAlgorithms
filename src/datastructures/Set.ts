@@ -37,14 +37,14 @@ export default class Set<T>{
      * Inserts the item into the set. Does nothing if the set contains the value already.
      * Alias of inser().
      */
-    public add(item: T, comparer?: Function){
+    public add(item: T, comparer?: Function): void{
         this.insert(item, comparer);
     }
 
     /**
      * Inserts the item into the set. Does nothing if the set contains the value already.
      */
-    public insert(item: T, comparer?: Function){
+    public insert(item: T, comparer?: Function): void{
         if(!this.contains(item, comparer)){
             this._innerArray.push(item);
         }
@@ -53,7 +53,7 @@ export default class Set<T>{
     /**
      * Removes the given item from the Set, if it exists.
      */
-    public remove(item: T, comparer?: Function){
+    public remove(item: T, comparer?: Function): void{
         let index = this.indexOf(item)
         if(this.contains(item, comparer) && index >= 0){
            this._innerArray.splice(index, 1);
@@ -130,7 +130,7 @@ export default class Set<T>{
         return inline ? this : newSet;  
     }
 
-    public indexOf(item: T, comparer?: Function){
+    public indexOf(item: T, comparer?: Function): number{
         if(Utils.isUndefined(item)) {return -2;}
         var cmp = this.defaultOrCustomEqualityCheck(comparer);
         for (let x = 0; x < this._innerArray.length; x++) {

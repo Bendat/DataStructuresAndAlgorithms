@@ -7,6 +7,10 @@ function isNull(item) {
     return item === null;
 }
 exports.isNull = isNull;
+function isDefinedNotNull(item) {
+    return !isUndefined(item) && !isNull(item);
+}
+exports.isDefinedNotNull = isDefinedNotNull;
 function areEqual(a, b) {
     return a === b;
 }
