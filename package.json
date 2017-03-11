@@ -21,6 +21,7 @@
     "typescript": "^2.1.4"
   },
   "dependencies": {
+    "hashcode": "^1.0.3",
     "lodash": "^4.17.2"
   }
 }

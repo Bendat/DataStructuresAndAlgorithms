@@ -17,6 +17,7 @@ export class QuickSort<T>{
      * Sorts the array;
      * @param {number=} left The index of the leftmost element, defaults 0
      * @param {number=} right The index of the rightmost element, defaults array.length-1
+     * @returns {T[]} The Sorted array.
      */
     public sort(left?: number, right?: number): T[] {
 
@@ -56,28 +57,31 @@ export class QuickSort<T>{
      */
     private partition(pivot, left, right): number {
 
-        let storeIndex = left;
+        let index = left;
         let pivotValue = this._innerArray[pivot];
 
         this.swap(pivot, right);
 
         for(let i = left; i < right; i++) {
             if(this._comparator(this._innerArray[i], pivotValue) == -1) {
-                this.swap(i, storeIndex);
-                storeIndex++;
+                this.swap(i, index);
+                index++;
             }
         }
 
-        this.swap(right, storeIndex);
+        this.swap(right, index);
 
-        return storeIndex;
+        return index;
     }
 
     /**@private*/
     private defaultOrCustomComparator(comparator){
         return Utils.isDefinedNotNull(comparator) ?
             comparator:
-            (a: any, b: any) => {return a == b ? 0: a < b? -1 : 1;}
+            (a: any, b: any) => {
+                return a === b ? 0: 
+                    a < b? -1 : 1;
+            }
     }
 
 }

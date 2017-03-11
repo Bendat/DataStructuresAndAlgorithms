@@ -235,7 +235,7 @@ export default class LinkedList<T>{
     public toString(): string {
         return "["+this.toArray().toString()+"]";
     }
-
+    
     /**@private */
     private removeNode(currentNode: INode<T>, previousNode: INode<T>):void{
         if(Utils.areEqual(currentNode, this._firstNode)){

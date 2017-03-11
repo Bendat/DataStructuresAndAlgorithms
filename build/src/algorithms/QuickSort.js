@@ -28,22 +28,25 @@ var QuickSort = (function () {
         this._innerArray[second] = temp;
     };
     QuickSort.prototype.partition = function (pivot, left, right) {
-        var storeIndex = left;
+        var index = left;
         var pivotValue = this._innerArray[pivot];
         this.swap(pivot, right);
         for (var i = left; i < right; i++) {
             if (this._comparator(this._innerArray[i], pivotValue) == -1) {
-                this.swap(i, storeIndex);
-                storeIndex++;
+                this.swap(i, index);
+                index++;
             }
         }
-        this.swap(right, storeIndex);
-        return storeIndex;
+        this.swap(right, index);
+        return index;
     };
     QuickSort.prototype.defaultOrCustomComparator = function (comparator) {
         return Utils.isDefinedNotNull(comparator) ?
             comparator :
-            function (a, b) { return a == b ? 0 : a < b ? -1 : 1; };
+            function (a, b) {
+                return a === b ? 0 :
+                    a < b ? -1 : 1;
+            };
     };
     return QuickSort;
 }());
