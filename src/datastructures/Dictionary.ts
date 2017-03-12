@@ -222,7 +222,7 @@ export class Dictionary<TKey, TValue>{
      * @param {TKey} item The item to hash.
      */
     protected getHash(item: TKey): number{
-        return 1;// Math.abs(hashCode().value(item)) % this._entries.length;
+        return  Math.abs(hashCode().value(item)) % this._entries.length;
     }
 
     protected getKeys(): TKey[]{
